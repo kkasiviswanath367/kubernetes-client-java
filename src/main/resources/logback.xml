@@ -1,0 +1,24 @@
+<configuration>
+  <appender name="classicConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</pattern>
+    </encoder>
+  </appender>
+  <appender name="jsonConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
+  </appender>
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+        <provider class="net.logstash.logback.composite.loggingevent.ArgumentsJsonProvider"/>
+    </encoder>
+</appender>
+
+  <logger name="jsonLogger" additivity="false" level="DEBUG">
+        <appender-ref ref="classicConsoleAppender"/>
+    </logger>
+  <root level="INFO">
+    <appender-ref ref="classicConsoleAppender"/>
+   <appender-ref ref="jsonConsoleAppender"/>
+    <appender-ref ref="STDOUT"/>
+  </root>
+</configuration>
